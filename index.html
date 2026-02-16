@@ -85,7 +85,6 @@ const horaSelect = document.getElementById("hora");
 const mensaje = document.getElementById("mensaje");
 const form = document.getElementById("turnoForm");
 
-// Cuando cambia la fecha → cargar horarios disponibles
 fechaInput.addEventListener("change", function() {
 
   horaSelect.innerHTML = '<option value="">Cargando horarios...</option>';
@@ -96,7 +95,6 @@ fechaInput.addEventListener("change", function() {
     .then(turnos => {
 
       const fechaSeleccionada = fechaInput.value;
-
       const horasDisponibles = turnos.filter(t => t.fecha === fechaSeleccionada);
 
       horaSelect.innerHTML = "";
@@ -121,7 +119,6 @@ fechaInput.addEventListener("change", function() {
     });
 });
 
-// Cuando envía el formulario → reservar
 form.addEventListener("submit", function(e) {
 
   e.preventDefault();
