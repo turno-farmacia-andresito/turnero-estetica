@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserva tu turno</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background: #72bd99;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #mensaje {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Reserva tu turno</h2>
+
+  <form id="turnoForm">
+    <input type="date" id="fecha" required>
+    <input type="time" id="hora" required>
+    <input type="text" id="nombre" placeholder="Tu nombre" required>
+    <input type="tel" id="telefono" placeholder="Tu teléfono" required>
+    <button type="submit">Reservar</button>
+  </form>
+
+  <p id="mensaje"></p>
+</div>
+
+<script>
+document.getElementById("turnoForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const datos = {
+    fecha: document.getElementById("fecha").value,
+    hora: document.getElementById("hora").value,
+    nombre: document.getElementById("nombre").value,
+    telefono: document.getElementById("telefono").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyOY-IWtOHL5wVOoyw00Ae7sF7J6PCN5kqoG-ivDWOzirN6oLb9g3MbwjGxIbCh0bWK/exec", {
+    method: "POST",
+    body: JSON.stringify(datos)
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("mensaje").innerText = "Turno reservado correctamente";
+    document.getElementById("turnoForm").reset();
+  })
+  .catch(err => {
+    document.getElementById("mensaje").innerText = "Error al reservar";
+  });
+});
+</script>
+
+</body>
+</html>
