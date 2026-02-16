@@ -70,6 +70,7 @@
 
     <input type="text" id="nombre" placeholder="Tu nombre" required>
     <input type="tel" id="telefono" placeholder="Tu teléfono" required>
+    <input type="email" id="email" placeholder="Tu correo electrónico" required>
 
     <button type="submit">Reservar</button>
   </form>
@@ -127,7 +128,8 @@ form.addEventListener("submit", function(e) {
     fecha: fechaInput.value,
     hora: horaSelect.value,
     nombre: document.getElementById("nombre").value,
-    telefono: document.getElementById("telefono").value
+    telefono: document.getElementById("telefono").value,
+    email: document.getElementById("email").value
   };
 
   fetch(apiURL, {
@@ -138,7 +140,7 @@ form.addEventListener("submit", function(e) {
   .then(data => {
 
     if (data.resultado === "ok") {
-      mensaje.innerText = "Turno reservado correctamente";
+      mensaje.innerText = "Turno reservado correctamente. Revisá tu correo.";
       form.reset();
       horaSelect.innerHTML = '<option value="">Seleccioná una fecha primero</option>';
     } else {
