@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test API Agenda</title>
+</head>
+<body>
+
+<h2>Probar Validación de Clave</h2>
+
+<input type="text" id="clave" placeholder="Ingrese clave">
+<button onclick="probar()">Validar</button>
+
+<p id="resultado"></p>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbye6IIQJwokLvNTuhr49o9xxMmwc1PbQvwLrKYqe6MJ7p0YR5pNZdWJnU4GmeLab4TLug/exec";
+
+function probar() {
+  const clave = document.getElementById("clave").value;
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "validarClave",
+      clave: clave
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("resultado").innerText =
+      data.success ? "Clave válida ✅" : "Clave inválida ❌";
+  })
+  .catch(err => {
+    document.getElementById("resultado").innerText = "Error conexión";
+    console.error(err);
+  });
+}
+</script>
+
+</body>
+</html>
